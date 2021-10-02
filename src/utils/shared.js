@@ -1,4 +1,3 @@
-const translit = require('latin-to-cyrillic');
 const toCyrillic = require('./langmap');
 
 checkIfValidQueryFields = async function(reqQueryParams, allowedQueryParams) {
