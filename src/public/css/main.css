@@ -1,0 +1,64 @@
+
+.header {
+    background-color: #ffffff;
+    border-radius: 0 0 40px 40px;
+    padding-top: 50px;
+    padding-bottom: 90px;
+    z-index: 2;
+}
+.conf-img-container {
+    text-align: center;
+}
+.confirmation-img {
+    margin: auto;
+}
+.header-text {
+    font-family: sans-serif;
+    text-transform: uppercase;
+    font-weight: 200;
+    font-size: 40px;
+    color: #717171;
+    margin-top: 20px;
+    text-align: center;
+}
+.conf-content {
+    background-color: #3fb775;
+    /*height: 92%;*/
+    z-index: 1;
+}
+.conf-info {
+    margin-top: 50px;
+    text-align: center;
+    color: #14753f;
+}
+.conf-field {
+    margin-top: 20px;
+    font-family: sans-serif;
+}
+.conf-field-text {
+    margin-top: 6px;
+    font-size: 20px;
+    color: #ffffff;
+    text-transform: uppercase;
+    display: block;
+}
+.conf-field-divider {
+    color: #ffffff;
+    font-size: 20px;
+    font-family: sans-serif;
+}
+.conf-id {
+    display: block;
+    margin-top: 20px;
+    padding: 0 10px 10px 10px;
+    font-family: sans-serif;
+}
+.footer {
+    display: flex;
+    text-align: center;
+    margin: 20px 10% 0 30%;
+}
+.footer-text {
+    font-size: 17px;
+}
+

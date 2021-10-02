@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>covid19_vaccination_certificate</title>
+        <link rel="stylesheet" href="/css/main.css">
+    </head>
+    <body>
+    <div class="conf-content">
+        <div class="header">
+            <div class="conf-img-container">
+                <img class='confirmation-img' src="/images/confirmation.png" alt="confirmation.img">
+            </div>
+            <div class="header-text">
+                <span>Сертификат за COVID-19 вакцинација</span>
+                <span> / </span>
+                <span>COVID-19 VACCINATION CERTIFICATE</span>
+            </div>
+        </div>
+        <div class="conf-info">
+            <div class="conf-field">
+                <span>Име / Name</span>
+                <span class="conf-field-text"><%= name %></span>
+            </div>
+            <div class="conf-field">
+                <span>Презиме / Surname</span>
+                <span class="conf-field-text"><%= surname %></span>
+            </div>
+            <div class="conf-field">
+                <span>Вакцина / Vaccine</span>
+                <span class="conf-field-text"><%= vaccine %></span>
+            </div>
+            <div class="conf-field">
+                <span>Датум на апликација / Application date</span>
+                <span class="conf-field-text"><%= date %></span>
+            </div>
+            <div class="conf-field">
+                <span class="conf-field-divider">____________</span>
+            </div>
+            <div class="conf-id">
+                <span>Единствена Шифра на Сертификатот / Unique Vaccination Certificate/Assertion Identifier (UVCI):</span>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p class="footer-text">Податоците се обезбедени преку системот </p>
+        <img class="footer-logo" src="/images/moj-termin-logo.png" alt="">
+    </div>
+    </body>
+
+</html>
