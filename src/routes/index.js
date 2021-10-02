@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('', async (req, res, next) => {
     try {
-        const allowedQueryParams = ['name', 'surname', 'vaccine', 'date'];
+        const allowedQueryParams = ['name', 'surname', 'vaccine', 'date', 'id'];
         const reqQueryParams = Object.keys(req.query);
         await checkIfValidQueryFields(reqQueryParams, allowedQueryParams);
         await transformQueryFields(req.query);

@@ -23,7 +23,6 @@
 }
 .conf-content {
     background-color: #3fb775;
-    /*height: 92%;*/
     z-index: 1;
 }
 .conf-info {
@@ -50,15 +49,40 @@
 .conf-id {
     display: block;
     margin-top: 20px;
-    padding: 0 10px 10px 10px;
+    padding: 0 10px 0 10px;
     font-family: sans-serif;
 }
 .footer {
     display: flex;
     text-align: center;
-    margin: 20px 10% 0 30%;
+    padding: 20px 10% 0 30%;
+    z-index: 3;
+    background-color: #ffffff;
+    margin-top: 20px;
 }
 .footer-text {
     font-size: 17px;
+}
+
+@media(min-width: 767px)  and (min-height: 1020px) {
+    .conf-content {
+        height: 92%;
+    }
+    .conf-field {
+        font-size: 25px;
+    }
+    .conf-field-text {
+        font-size: 40px;
+    }
+    .header-text {
+        font-size: 50px;
+    }
+    .header {
+        height: 35%;
+        padding-top: 20%;
+    }
+    .conf-id {
+        font-size: 25px;
+    }
 }
 

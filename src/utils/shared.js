@@ -11,8 +11,11 @@ checkIfValidQueryFields = async function(reqQueryParams, allowedQueryParams) {
 transformQueryFields = async function (reqQueryParams) {
     for (let param in reqQueryParams) {
         if (reqQueryParams.hasOwnProperty(param)) {
-            if (param !== 'date' && param !== 'vaccine') {
+            if (param !== 'date' && param !== 'vaccine' && param !== 'id') {
                 reqQueryParams[param] = reqQueryParams[param] + ' / ' + toCyrillic(reqQueryParams[param]);
+            }
+            if (param === 'id') {
+                reqQueryParams[param] = reqQueryParams[param].replace(/[-]/g, '#');
             }
         }
     }
