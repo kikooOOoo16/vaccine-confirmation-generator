@@ -3,20 +3,58 @@
     <meta charset="utf-8">
     <title>covid19_vaccination_certificate</title>
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&family=Roboto+Slab:wght@200&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div>
-        <button>Add new patient</button>
-        <button>Delete patient</button>
+<%- include('../partials/notifications') %>
+<%- include('../partials/navbar') %>
+
+<div>
+    <div class="heading-container">
+        <h1 class="table-heading">All Patients</h1>
     </div>
-    <div>
-        <h3>List of registered patients</h3>
-        <ul>
-            <li>Name 1</li>
-            <li>Name 2</li>
-            <li>Name 3</li>
-            <li>Name 4</li>
-        </ul>
+    <div class="tbl-header">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>DB ID</th>
+                <th>vaccine</th>
+                <th>application_date</th>
+                <th>certificate_code </th>
+                <th>Manage</th>
+            </tr>
+            </thead>
+        </table>
     </div>
-    <script type="text/javascript" src="flash/flash-client.js"></script>
+    <div class="tbl-content">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+                <% if (patients && patients.length > 0) { %>
+                <% patients.forEach(patient => {%>
+            <tr>
+                <td><%= patient.name %></td>
+                <td><%= patient.surname %></td>
+                <td><%= patient._id %></td>
+                <td><%= patient.vaccine %></td>
+                <td><%= patient.application_date %></td>
+                <td><%= patient.certificate_code %></td>
+                <td>
+                    <a class="patient-edit-button" href="/patients/<%= patient._id%>/edit">EDIT</a>
+                    <form action="/patients/<%= patient._id %>?_method=DELETE" method="POST">
+                        <button class="patient-delete-button">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            <% }) %>
+            <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript" src="/js/script.js"></script>
 </body>

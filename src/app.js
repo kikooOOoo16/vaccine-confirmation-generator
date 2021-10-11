@@ -2,7 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const passportSetup = require('../config/passport');
-const flash = require('flash-express');
+const flash = require('connect-flash');
+const methodOverride = require('method-override');
 
 const indexRoutes = require('./routes/index');
 const patientsRoutes = require('./routes/patients');
@@ -15,12 +16,18 @@ const app = express();
 // Setup flash-express for flash messages
 app.use(flash());
 
+// Setup method override in order to send PATCH and DELETE requests as query params (client doesn't support them we can only send POST and GET)
+app.use(methodOverride('_method'));
+
 // Setup passport local strategy
 passportSetup(app);
 
 // Middleware that passes data to all templates
 app.use ( (req, res, next) => {
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash('error');
+    res.locals.success = req.flash('success');
+    res.locals.warning = req.flash('warning');
     next();
 });
 
@@ -36,7 +43,7 @@ app.set('views', path.join(__dirname, '/public/views'));
 app.use(express.static(__dirname + "/public"));
 
 // setup routes
-app.use('/', indexRoutes);
 app.use('/patients', patientsRoutes);
+app.use('/', indexRoutes);
 
 module.exports = app;

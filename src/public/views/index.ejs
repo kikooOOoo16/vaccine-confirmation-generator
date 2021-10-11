@@ -17,31 +17,31 @@
             </div>
         </div>
         <div class="conf-info">
-            <div class="conf-field">
-                <span>Име / Name</span>
-                <span class="conf-field-text"><%= name %></span>
-            </div>
-            <div class="conf-field">
-            <span>Презиме / Surname</span>
-                <span class="conf-field-text"><%= surname %></span>
-            </div>
-            <div class="conf-field">
-            <span>Вакцина / Vaccine</span>
-                <span class="conf-field-text"><%= vaccine %></span>
-            </div>
-            <div class="conf-field">
-            <span>Датум на апликација / Application date</span>
-                <span class="conf-field-text"><%= date %></span>
-            </div>
-            <div class="conf-field">
-            <span class="conf-field-divider">____________</span>
-            </div>
-            <div class="conf-id">
-            <span>Единствена Шифра на Сертификатот / Unique Vaccination Certificate/Assertion Identifier (UVCI):</span>
-            </div>
-            <div class="conf-field">
-                <span class="conf-field-text"><%= id %>></span>
-            </div>
+        <div class="conf-field">
+            <span>Име / Name</span>
+            <span class="conf-field-text"><%= patient.name %></span>
+        </div>
+        <div class="conf-field">
+        <span>Презиме / Surname</span>
+            <span class="conf-field-text"><%= patient.surname %></span>
+        </div>
+        <div class="conf-field">
+        <span>Вакцина / Vaccine</span>
+            <span class="conf-field-text"><%= patient.vaccine %></span>
+        </div>
+        <div class="conf-field">
+        <span>Датум на апликација / Application date</span>
+            <span class="conf-field-text"><%= patient.application_date %></span>
+        </div>
+        <div class="conf-field">
+        <span class="conf-field-divider">____________</span>
+        </div>
+        <div class="conf-id">
+        <span>Единствена Шифра на Сертификатот / Unique Vaccination Certificate/Assertion Identifier (UVCI):</span>
+        </div>
+        <div class="conf-field">
+            <span class="conf-field-text"><%= patient.certificate_code %>></span>
+        </div>
         </div>
     <div class="footer">
         <p class="footer-text">Податоците се обезбедени преку системот </p>

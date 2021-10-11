@@ -1,0 +1,28 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>covid19_vaccination_certificate</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+<%- include('../partials/navbar') %>
+<div class="heading-container">
+    <h1 class="table-heading">Edit patient data</h1>
+</div>
+<div class="input-form">
+    <div class="form new-patient-form">
+        <form class="register-form" action="/patients/<%=patient._id%>?_method=PATCH" method="POST">
+            <input type="text" name="name" value='<%=patient.name ? patient.name : ''%>' placeholder="Име / Name" required/>
+            <input type="text" name="surname" value='<%=patient.surname ? patient.surname : ''%>' placeholder="Презиме / Surname" required/>
+            <input type="text" name="vaccine" value='<%=patient.vaccine ? patient.vaccine : ''%>' placeholder="COVID-19 VACCINE (VERO CELL), INACTIVATED (SINOVAC)" required/>
+            <input type="date" name="application_date" value='<%=patient.application_date ? patient.application_date : ''%>' placeholder="01.01.2021" required/>
+            <input type="text" name="certificate_code" value='<%=patient.certificate_code ? patient.certificate_code : ''%>' placeholder="01#MK#MINOFHEALTH#QYEZEOMU#2" minlength="28" maxlength="28" required/>
+            <button>Edit Patient</button>
+        </form>
+    </div>
+</div>
+
+</body>

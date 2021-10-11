@@ -21,24 +21,4 @@ transformQueryFields = async function (reqQueryParams) {
     }
 }
 
-const flashMessageOptions = {
-    position:"t",
-    duration:"3000"
-};
-
-handleLoginErrors = async function (err, user, info, res) {
-    if (err) {
-        console.log(`handleLoginErrors err: ${err}`);
-        res.flash(`Error: ${err}`, 'error', {flashMessageOptions});
-        res.redirect('/login');
-    }
-    if (!user) {
-        if (info) {
-            console.log(`handleLoginErrors info: ${info}`);
-            res.flash(`Error: ${info}`, 'info', {flashMessageOptions});
-        }
-        res.redirect('/login');
-    }
-}
-
 module.exports = {checkIfValidQueryFields, transformQueryFields, handleLoginErrors};
