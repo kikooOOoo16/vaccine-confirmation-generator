@@ -5,6 +5,24 @@ const Patient = require('../models/patient');
 
 const router = express.Router();
 
+// GET PATIENT CERTIFICATE CONFIRMATION
+router.get('/Covid19VaccineCertificates/:id', async (req, res, next) => {
+    try {
+        const patient = await Patient.findById(req.params.id);
+        if (!patient) {
+            res.status(404).json({
+                message: 'Patient data not found.'
+            });
+        }
+        res.render('index', {patient})
+    } catch (err) {
+        // res.status(400).json({
+        //     message: 'Не е пронајден валиден сертификат'
+        // });
+        res.send('<p>Не е пронајден валиден сертификат</p>');
+    }
+});
+
 // USER REGISTRATION GET
 router.get('/register', (req, res, next) => {
     res.render('auth/register');
@@ -64,23 +82,6 @@ router.get('/logout', (req, res, next) => {
     req.logout();
     req.flash('success', 'Logged you out!');
     res.redirect('/login');
-});
-
-// GET PATIENT CERTIFICATE CONFIRMATION
-router.get('/:id', async (req, res, next) => {
-    try {
-        const patient = await Patient.findById(req.params.id);
-        if (!patient) {
-            res.status(404).json({
-                message: 'Patient data not found.'
-            });
-        }
-        res.render('index', {patient})
-    } catch (err) {
-        res.status(400).json({
-            message: err
-        })
-    }
 });
 
 module.exports = router;

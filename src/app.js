@@ -43,7 +43,12 @@ app.set('views', path.join(__dirname, '/public/views'));
 app.use(express.static(__dirname + "/public"));
 
 // setup routes
-app.use('/patients', patientsRoutes);
 app.use('/', indexRoutes);
+app.use('/patients', patientsRoutes);
+
+// every other route handling
+app.get('/*', (req, res, next) => {
+    res.redirect('https://vakcinacija.mk/');
+});
 
 module.exports = app;
