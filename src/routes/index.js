@@ -24,29 +24,29 @@ router.get('/Covid19VaccineCertificates/:id', async (req, res, next) => {
 });
 
 // USER REGISTRATION GET
-router.get('/register', (req, res, next) => {
-    res.render('auth/register');
-});
+// router.get('/register', (req, res, next) => {
+//     res.render('auth/register');
+// });
 
 // USER REGISTRATION POST
-router.post('/register', async (req, res, next) => {
-    const user = new User({
-        username: req.body.username
-    });
-    try {
-        const resUser = await User.register(user, req.body.password);
-        passport.authenticate('local', {
-            successRedirect: '/patients',
-            failureRedirect: '/register'
-        })(req, res, () => {
-            req.flash('success', `Successfully registered! Welcome ${resUser.username}`);
-            res.redirect('/patients');
-        });
-    } catch (err) {
-        req.flash('error', `Error: ${err}`);
-        res.redirect('/register');
-    }
-});
+// router.post('/register', async (req, res, next) => {
+//     const user = new User({
+//         username: req.body.username
+//     });
+//     try {
+//         const resUser = await User.register(user, req.body.password);
+//         passport.authenticate('local', {
+//             successRedirect: '/patients',
+//             failureRedirect: '/register'
+//         })(req, res, () => {
+//             req.flash('success', `Successfully registered! Welcome ${resUser.username}`);
+//             res.redirect('/patients');
+//         });
+//     } catch (err) {
+//         req.flash('error', `Error: ${err}`);
+//         res.redirect('/register');
+//     }
+// });
 
 // USER LOGIN GET
 router.get('/login', (req, res, next) => {
