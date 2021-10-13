@@ -254,11 +254,14 @@ table {
     width:100%;
     table-layout: fixed;
 }
+#patients-list-content {
+    height: 100%;
+}
 .tbl-header {
     background-color: rgba(255,255,255,0.3);
 }
 .tbl-content {
-    height:300px;
+    height: 100%;
     overflow-x:auto;
     margin-top: 0;
     border: 1px solid rgba(255,255,255,0.3);
