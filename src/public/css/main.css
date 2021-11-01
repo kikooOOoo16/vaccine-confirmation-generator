@@ -261,7 +261,6 @@ table {
     background-color: rgba(255,255,255,0.3);
 }
 .tbl-content {
-    height: 100%;
     overflow-x:auto;
     margin-top: 0;
     border: 1px solid rgba(255,255,255,0.3);
@@ -315,6 +314,35 @@ td {
 }
 .patient-delete-button:hover {
     background-color: #fd4242;
+}
+.pagination {
+    margin-top: 50px;
+    font-family: 'Merriweather', serif;
+    font-weight: 500;
+    color: #ffffff;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+}
+.pagination li {
+    padding: 8px 13px 8px 13px;
+    display: inline;
+    background-color: #45ABCD;
+}
+
+.pagination li:hover {
+    background-color: #78c0db;
+}
+
+.pagination li.active {
+    background-color: #1480a3;
+}
+.pagination li a {
+    text-decoration: none;
+}
+.pagination li a:visited {
+    text-decoration: none;
+    color: #ffffff;
 }
 
 /* New Patient page */

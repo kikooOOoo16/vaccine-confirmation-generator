@@ -72,7 +72,7 @@ router.post('/login', (req, res, next) => {
                 res.redirect('/login');
             }
             req.flash('success', `Logged in successfully, welcome ${user.username}!`);
-            res.redirect('/patients');
+            res.redirect('/patients/?currentPage=1&pageSize=5');
         })
     })(req, res, next);
 });

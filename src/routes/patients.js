@@ -7,8 +7,35 @@ const router = express.Router();
 
 // GET ALL PATIENTS
 router.get('/', authMiddleware, async (req, res, next) => {
-    const patients = await Patient.find({}).sort({name: 'asc', surname: '1'});
-    res.render('patients/index', { patients, page: 'all-patients' });
+    try {
+        const pageSize = +req.query.pageSize;
+        const currentPage = +req.query.currentPage;
+        let patientsQuery = Patient.find({}).sort({name: 'asc', surname: '1'});
+
+        const numOfPatients = await Patient.countDocuments().exec();
+
+        if (req.query.currentPage && req.query.pageSize > 0) {
+            patientsQuery
+                .skip((currentPage - 1) * pageSize)
+                .limit(pageSize)
+        }
+        patientsQuery.then(patients => {
+            res.render('patients/index', {
+                patients,
+                page: 'all-patients',
+                pages: Math.ceil(numOfPatients / pageSize),
+                currentPage
+            });
+        })
+    } catch (err) {
+        req.flash('error', `Error: ${err}`);
+        res.render('patients/index', {
+            patients: [],
+            page: 'all-patients',
+            pages: 0,
+            currentPage: 0
+        });
+    }
 });
 
 // GET NEW PATIENT FORM
