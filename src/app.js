@@ -7,6 +7,7 @@ const methodOverride = require('method-override');
 
 const indexRoutes = require('./routes/index');
 const patientsRoutes = require('./routes/patients');
+const loggerRoutes = require('./routes/logs');
 
 // Connect to DB
 require('./db/mongoose');
@@ -45,6 +46,7 @@ app.use(express.static(__dirname + "/public"));
 // setup routes
 app.use('/', indexRoutes);
 app.use('/patients', patientsRoutes);
+app.use('/logs', loggerRoutes);
 
 // every other route handling
 app.get('/*', (req, res, next) => {

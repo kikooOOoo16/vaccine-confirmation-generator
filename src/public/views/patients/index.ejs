@@ -59,7 +59,7 @@
             <% if (currentPage  == 1) { %>
                 <li class="disabled"><a>First</a></li>
             <% } else { %>
-                <li><a href="/patients?currentPage=1&pageSize=5">First</a></li>
+                <li><a href="/patients?currentPage=1&pageSize=10">First</a></li>
             <% } %>
             <% var i = (Number(currentPage) > 5 ? Number(currentPage ) - 4 : 1) %>
             <% if (i !== 1) { %>
@@ -69,7 +69,7 @@
                 <% if (i == currentPage ) { %>
                     <li class="active"><a><%= i %></a></li>
                 <% } else { %>
-                    <li><a href="/patients/?currentPage=<%= i %>&pageSize=5"><%= i %></a></li>
+                    <li><a href="/patients/?currentPage=<%= i %>&pageSize=10"><%= i %></a></li>
                 <% } %>
                 <% if (i == Number(currentPage) + 4 && i < pages) { %>
                     <li class="disabled"><a>...</a></li>
@@ -78,7 +78,7 @@
             <% if (currentPage  == pages) { %>
                 <li class="disabled"><a>Last</a></li>
             <% } else { %>
-                <li><a href="/patients/?currentPage=<%= pages %>&pageSize=5">Last</a></li>
+                <li><a href="/patients/?currentPage=<%= pages %>&pageSize=10">Last</a></li>
             <% } %>
         </ul>
     <% } %>

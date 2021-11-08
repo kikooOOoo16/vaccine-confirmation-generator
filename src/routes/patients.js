@@ -1,118 +1,25 @@
 const express = require('express');
 const authMiddleware = require('../middleware/middleware');
-const Patient = require('../models/patient');
-const moment = require('moment');
+const patientsControllers = require('../controllers/patients');
 
 const router = express.Router();
 
 // GET ALL PATIENTS
-router.get('/', authMiddleware, async (req, res, next) => {
-    try {
-        const pageSize = +req.query.pageSize;
-        const currentPage = +req.query.currentPage;
-        let patientsQuery = Patient.find({}).sort({name: 'asc', surname: '1'});
-
-        const numOfPatients = await Patient.countDocuments().exec();
-
-        if (req.query.currentPage && req.query.pageSize > 0) {
-            patientsQuery
-                .skip((currentPage - 1) * pageSize)
-                .limit(pageSize)
-        }
-        patientsQuery.then(patients => {
-            res.render('patients/index', {
-                patients,
-                page: 'all-patients',
-                pages: Math.ceil(numOfPatients / pageSize),
-                currentPage
-            });
-        })
-    } catch (err) {
-        req.flash('error', `Error: ${err}`);
-        res.render('patients/index', {
-            patients: [],
-            page: 'all-patients',
-            pages: 0,
-            currentPage: 0
-        });
-    }
-});
+router.get('/', authMiddleware, patientsControllers.getAllPatients);
 
 // GET NEW PATIENT FORM
-router.get('/new', authMiddleware, (req, res, next) => {
-    res.render('patients/new', {page: 'new-patient'});
-});
+router.get('/new', authMiddleware, patientsControllers.getNewPatient);
 
 // POST NEW PATIENT TO DB
-router.post('/new', authMiddleware, async (req, res, next) => {
-    const patient = new Patient({
-        ...req.body
-    });
-    console.log(moment(req.body.application_date).format('DD.MM.YYYY'));
-    patient.application_date = moment(req.body.application_date).format('DD.MM.YYYY');
-
-    try {
-        await patient.save();
-        req.flash('success', 'New patient added successfully!');
-        res.redirect('/patients');
-    } catch  (err) {
-        req.flash('error', `Error: ${err}`);
-        res.redirect('/patients/new');
-    }
-});
+router.post('/new', authMiddleware, patientsControllers.postNewPatient);
 
 // GET EDIT PATIENT ROUTE
-router.get('/:id/edit', authMiddleware, async (req, res, next) => {
-    const patient = await Patient.findById(req.params.id);
-
-    if (!patient) {
-        req.flash('error', `There was a problem finding that specific data!`);
-        res.redirect('/patients');
-    }
-    res.render('patients/edit', {patient, page: ''});
-});
+router.get('/:id/edit', authMiddleware, patientsControllers.getEditPatient);
 
 // PATCH SINGLE PATIENT DATA
-router.patch('/:id', authMiddleware, async (req, res, next) => {
-    req.body.application_date = moment(req.body.application_date).format('DD.MM.YYYY');
-    const reqUpdateFields = Object.keys(req.body);
-
-    try {
-        const newPatient = await Patient.findOne({_id: req.params.id});
-
-        if (!newPatient) {
-            throw `There was a problem retrieving the patient's data!`;
-        }
-
-        reqUpdateFields.forEach(updateField => {
-            newPatient[updateField] = req.body[updateField];
-        });
-
-        await newPatient.save();
-
-        req.flash('success', 'Patient data successfully updated!');
-        res.redirect('/patients');
-    } catch (err) {
-        req.flash('error', `Error: ${err}!`);
-        res.redirect('/patients');
-    }
-});
+router.patch('/:id', authMiddleware, patientsControllers.patchSinglePatient);
 
 // DELETE SINGLE PATIENT DATA
-router.delete('/:id', authMiddleware, async (req, res, next) => {
-    try {
-        const deletedPatient = await Patient.findOneAndDelete({_id: req.params.id});
-
-        if (!deletedPatient) {
-            req.flash('error', `There was a problem deleting the patient's data.`);
-            res.redirect('/patients');
-        }
-        req.flash('success', 'Patient data successfully deleted!');
-        res.redirect('/patients');
-    } catch (err) {
-        req.flash('error', `Error: ${err}!`);
-        res.redirect('/patients');
-    }
-});
+router.delete('/:id', authMiddleware, patientsControllers.deleteSinglePatient);
 
 module.exports = router;

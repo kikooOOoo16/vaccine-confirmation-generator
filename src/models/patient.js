@@ -26,7 +26,7 @@ const patientSchema = new mongoose.Schema({
         trim: true,
         validate(value) {
             if (value.length !== 28) {
-                throw new Error('Certificate code must be ')
+                throw new Error('Certificate code must be longer than 28 characters!')
             }
         }
     }

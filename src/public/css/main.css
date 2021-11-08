@@ -339,6 +339,7 @@ td {
 }
 .pagination li a {
     text-decoration: none;
+    color: #ffffff;
 }
 .pagination li a:visited {
     text-decoration: none;

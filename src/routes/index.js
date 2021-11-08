@@ -1,87 +1,27 @@
 const express = require('express');
-const User = require('../models/user');
-const passport = require('passport');
-const Patient = require('../models/patient');
-
 const router = express.Router();
 
+const authMiddleware = require('../middleware/middleware');
+
+
+const indexControllers = require('../controllers/index');
+
 // GET PATIENT CERTIFICATE CONFIRMATION
-router.get('/Covid19VaccineCertificates/:id', async (req, res, next) => {
-    try {
-        const patient = await Patient.findById(req.params.id);
-        if (!patient) {
-            res.status(404).json({
-                message: 'Patient data not found.'
-            });
-        }
-        res.render('index', {patient})
-    } catch (err) {
-        // res.status(400).json({
-        //     message: 'Не е пронајден валиден сертификат'
-        // });
-        res.send('<p>Не е пронајден валиден сертификат</p>');
-    }
-});
+router.get('/Covid19VaccineCertificates/:id', indexControllers.getPatientCertificate);
 
 // USER REGISTRATION GET
-// router.get('/register', (req, res, next) => {
-//     res.render('auth/register');
-// });
+// router.get('/register', indexControllers.getRegisterUser);
 
 // USER REGISTRATION POST
-// router.post('/register', async (req, res, next) => {
-//     const user = new User({
-//         username: req.body.username
-//     });
-//     try {
-//         const resUser = await User.register(user, req.body.password);
-//         passport.authenticate('local', {
-//             successRedirect: '/patients',
-//             failureRedirect: '/register'
-//         })(req, res, () => {
-//             req.flash('success', `Successfully registered! Welcome ${resUser.username}`);
-//             res.redirect('/patients');
-//         });
-//     } catch (err) {
-//         req.flash('error', `Error: ${err}`);
-//         res.redirect('/register');
-//     }
-// });
+// router.post('/register', indexControllers.postRegisterUser);
 
 // USER LOGIN GET
-router.get('/login', (req, res, next) => {
-    res.render('auth/login')
-});
+router.get('/login', indexControllers.getLoginUser);
 
 // USER LOGIN POST
-router.post('/login', (req, res, next) => {
-    passport.authenticate('local', async (err, user, info) => {
-        if (err) {
-            req.flash('error', `Error: ${err}`);
-            return res.redirect('/login');
-        }
-        if (!user) {
-            if (info) {
-                req.flash('warning', `Error: ${info}`);
-            }
-            return res.redirect('/login');
-        }
-        req.login(user, (err) => {
-            if (err) {
-                req.flash('error', `Error: ${err}`);
-                res.redirect('/login');
-            }
-            req.flash('success', `Logged in successfully, welcome ${user.username}!`);
-            res.redirect('/patients/?currentPage=1&pageSize=5');
-        })
-    })(req, res, next);
-});
+router.post('/login', indexControllers.postLoginUser);
 
 // USER LOGOUT GET
-router.get('/logout', (req, res, next) => {
-    req.logout();
-    req.flash('success', 'Logged you out!');
-    res.redirect('/login');
-});
+router.get('/logout', authMiddleware, indexControllers.getLogoutUser);
 
 module.exports = router;
