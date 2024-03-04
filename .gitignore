@@ -1,3 +1,6 @@
+# Certificates
+src/db/certificates/*
+
 # Logs
 *.log
 npm-debug.log*

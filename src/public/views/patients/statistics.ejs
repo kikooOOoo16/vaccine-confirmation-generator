@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>covid19_vaccination_certificate</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+<%- include('../partials/notifications') %>
+<%- include('../partials/navbar') %>
+<div class="heading-container">
+    <h1 class="table-heading">Vaccination Statistics</h1>
+</div>
+<div class="canvas-row">
+    <div class="canvas-container">
+        <canvas id="vaccinationChartByCity" width="600" height="500"></canvas>
+    </div>
+</div>
+<div class="canvas-row">
+    <div class="canvas-container">
+        <canvas id="sumVaccinatedUnvaccinatedChart" width="400" height="500"></canvas>
+    </div>
+</div>
+
+<script>
+  const vaccinationStatusPerCityData = '<%- JSON.stringify(vaccinationStatusPerCityData) %>';
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="text/javascript" src="/js/statistics.script.js"></script>
+</body>

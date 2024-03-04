@@ -1,16 +1,16 @@
 const toCyrillic = require('./langmap');
 
-checkIfValidQueryFields = async function(reqQueryParams, allowedQueryParams) {
+const checkIfValidQueryFields = async function (reqQueryParams, allowedQueryParams) {
     const validQueryParams = reqQueryParams.every(queryParam => allowedQueryParams.includes(queryParam));
 
     if (!validQueryParams || reqQueryParams.length === 0) {
-        throw ('Invalid query params!');
+        throw 'Invalid query params!';
     }
-}
+};
 
-transformQueryFields = async function (reqQueryParams) {
+const transformQueryFields = async function (reqQueryParams) {
     for (let param in reqQueryParams) {
-        if (reqQueryParams.hasOwnProperty(param)) {
+        if (Object.prototype.hasOwnProperty.call(reqQueryParams, param)) {
             if (param !== 'date' && param !== 'vaccine' && param !== 'id') {
                 reqQueryParams[param] = reqQueryParams[param] + ' / ' + toCyrillic(reqQueryParams[param]);
             }
@@ -19,6 +19,6 @@ transformQueryFields = async function (reqQueryParams) {
             }
         }
     }
-}
+};
 
-module.exports = {checkIfValidQueryFields, transformQueryFields, handleLoginErrors};
+module.exports = {checkIfValidQueryFields, transformQueryFields};

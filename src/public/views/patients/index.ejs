@@ -5,7 +5,8 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&family=Merriweather&family=Roboto+Slab:wght@200&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&family=Merriweather&family=Roboto+Slab:wght@200&display=swap"
+          rel="stylesheet">
 </head>
 <body>
 <%- include('../partials/notifications') %>
@@ -24,7 +25,8 @@
                 <th>DB ID</th>
                 <th>vaccine</th>
                 <th>application_date</th>
-                <th>certificate_code </th>
+                <th>certificate_code</th>
+                <th>certificate_file</th>
                 <th>Manage</th>
             </tr>
             </thead>
@@ -33,55 +35,70 @@
     <div class="tbl-content">
         <table cellpadding="0" cellspacing="0" border="0">
             <tbody>
-                <% if (patients && patients.length > 0) { %>
-                <% patients.forEach(patient => {%>
-            <tr>
-                <td><%= patient.name %></td>
-                <td><%= patient.surname %></td>
-                <td><%= patient._id %></td>
-                <td><%= patient.vaccine %></td>
-                <td><%= patient.application_date %></td>
-                <td><%= patient.certificate_code %></td>
-                <td>
-                    <a class="patient-edit-button" href="/patients/<%= patient._id%>/edit">EDIT</a>
-                    <form action="/patients/<%= patient._id %>?_method=DELETE" method="POST">
-                        <button class="patient-delete-button">Delete</button>
-                    </form>
-                </td>
-            </tr>
-            <% }) %>
+            <% if (patients && patients.length > 0) { %>
+                <% patients.forEach(patient => { %>
+                    <tr>
+                        <td><%= patient.name %></td>
+                        <td><%= patient.surname %></td>
+                        <td><%= patient._id %></td>
+                        <td><%= patient.vaccine %></td>
+                        <td id="application-date-cell"><%= patient.application_date %></td>
+                        <td><%= patient.certificate_code %></td>
+                        <td id="certificate-file-cell">
+                            <a class="certificate-file-button"
+                               href="/Covid19VaccineCertificates/pdf/<%= patient._id %>">PDF</a>
+                        </td>
+                        <td>
+                            <a class="patient-edit-button" href="/patients/<%= patient._id %>/edit">EDIT</a>
+                            <form action="/patients/<%= patient._id %>?_method=DELETE" method="POST">
+                                <button class="patient-delete-button">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
             <% } %>
             </tbody>
         </table>
     </div>
-    <% if (pages > 0) { %>
-        <ul class="pagination text-center">
-            <% if (currentPage  == 1) { %>
-                <li class="disabled"><a>First</a></li>
-            <% } else { %>
-                <li><a href="/patients?currentPage=1&pageSize=10">First</a></li>
-            <% } %>
-            <% var i = (Number(currentPage) > 5 ? Number(currentPage ) - 4 : 1) %>
-            <% if (i !== 1) { %>
-                <li class="disabled"><a>...</a></li>
-            <% } %>
-            <% for (; i <= (Number(currentPage) + 4) && i <= pages; i++) { %>
-                <% if (i == currentPage ) { %>
-                    <li class="active"><a><%= i %></a></li>
+    <div class="pagination-container">
+        <div id="pageSize-selector">
+            <label for="pageSize">Page Size:</label>
+            <select id="pageSize" name="pageSize" onchange="changePageSize(this, <%= currentPage %>)">
+                <option value="5" <%= pageSize === 5 ? 'selected' : '' %>>5</option>
+                <option value="10" <%= pageSize === 10 ? 'selected' : '' %>>10</option>
+                <option value="20" <%= pageSize === 20 ? 'selected' : '' %>>20</option>
+                <option value="50" <%= pageSize === 50 ? 'selected' : '' %>>50</option>
+            </select>
+        </div>
+        <% if (pages > 0) { %>
+            <ul class="pagination text-center">
+                <% if (currentPage == 1) { %>
+                    <li class="disabled"><a>First</a></li>
                 <% } else { %>
-                    <li><a href="/patients/?currentPage=<%= i %>&pageSize=10"><%= i %></a></li>
+                    <li><a href="/patients?currentPage=1&pageSize=<%= pageSize || 10 %>">First</a></li>
                 <% } %>
-                <% if (i == Number(currentPage) + 4 && i < pages) { %>
+                <% var i = (Number(currentPage) > 5 ? Number(currentPage) - 4 : 1) %>
+                <% if (i !== 1) { %>
                     <li class="disabled"><a>...</a></li>
                 <% } %>
-            <% } %>
-            <% if (currentPage  == pages) { %>
-                <li class="disabled"><a>Last</a></li>
-            <% } else { %>
-                <li><a href="/patients/?currentPage=<%= pages %>&pageSize=10">Last</a></li>
-            <% } %>
-        </ul>
-    <% } %>
+                <% for (; i <= (Number(currentPage) + 4) && i <= pages; i++) { %>
+                    <% if (i == currentPage ) { %>
+                        <li class="active"><a><%= i %></a></li>
+                    <% } else { %>
+                        <li><a href="/patients/?currentPage=<%= i %>&pageSize=<%= pageSize || 10 %>"><%= i %></a></li>
+                    <% } %>
+                    <% if (i == Number(currentPage) + 4 && i < pages) { %>
+                        <li class="disabled"><a>...</a></li>
+                    <% } %>
+                <% } %>
+                <% if (currentPage == pages) { %>
+                    <li class="disabled"><a>Last</a></li>
+                <% } else { %>
+                    <li><a href="/patients/?currentPage=<%= pages %>&pageSize=<%= pageSize || 10 %>>">Last</a></li>
+                <% } %>
+            </ul>
+        <% } %>
+    </div>
 </div>
 
 <script type="text/javascript" src="/js/script.js"></script>

@@ -1,7 +1,9 @@
 <nav class="nav-menu">
     <ul>
-        <li class="<%= page === 'all-patients' ? 'active' : '' %>"><a href="/patients/?currentPage=1&pageSize=10">All patients</a></li>
+        <li class="<%= page === 'all-patients' ? 'active' : '' %>"><a href="/patients/?currentPage=1&pageSize=10">All
+                patients</a></li>
         <li class="<%= page === 'new-patient' ? 'active' : '' %>"><a href="/patients/new">Add new patient</a></li>
+        <li class="<%= page === 'statistics' ? 'active' : '' %>"><a href="/patients/statistics">Statistics</a></li>
         <li class="<%= page === 'logs' ? 'active' : '' %>"><a href="/logs/?currentPage=1&pageSize=10">Logs</a></li>
         <li><a href="/logout">Logout</a></li>
     </ul>

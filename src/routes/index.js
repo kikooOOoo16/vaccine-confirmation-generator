@@ -3,17 +3,19 @@ const router = express.Router();
 
 const authMiddleware = require('../middleware/middleware');
 
-
-const indexControllers = require('../controllers/index');
+const indexControllers = require('../controllers/index.controller');
 
 // GET PATIENT CERTIFICATE CONFIRMATION
 router.get('/Covid19VaccineCertificates/:id', indexControllers.getPatientCertificate);
 
+// GET PATIENT CERTIFICATE PDF FILE
+router.get('/Covid19VaccineCertificates/pdf/:id', authMiddleware, indexControllers.getPatientCertificatePdf);
+
 // USER REGISTRATION GET
-// router.get('/register', indexControllers.getRegisterUser);
+router.get('/register', indexControllers.getRegisterUser);
 
 // USER REGISTRATION POST
-// router.post('/register', indexControllers.postRegisterUser);
+router.post('/register', indexControllers.postRegisterUser);
 
 // USER LOGIN GET
 router.get('/login', indexControllers.getLoginUser);

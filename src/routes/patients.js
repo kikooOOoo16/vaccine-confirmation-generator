@@ -1,6 +1,6 @@
 const express = require('express');
 const authMiddleware = require('../middleware/middleware');
-const patientsControllers = require('../controllers/patients');
+const patientsControllers = require('../controllers/patients.controller');
 
 const router = express.Router();
 
@@ -12,6 +12,9 @@ router.get('/new', authMiddleware, patientsControllers.getNewPatient);
 
 // POST NEW PATIENT TO DB
 router.post('/new', authMiddleware, patientsControllers.postNewPatient);
+
+// GET PATIENT STATISTICS
+router.get('/statistics', authMiddleware, patientsControllers.getPatientStatistics);
 
 // GET EDIT PATIENT ROUTE
 router.get('/:id/edit', authMiddleware, patientsControllers.getEditPatient);

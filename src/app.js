@@ -7,7 +7,7 @@ const methodOverride = require('method-override');
 
 const indexRoutes = require('./routes/index');
 const patientsRoutes = require('./routes/patients');
-const loggerRoutes = require('./routes/logs');
+const loggerRoutes = require('./routes/user-action-logs');
 
 // Connect to DB
 require('./db/mongoose');
@@ -24,7 +24,7 @@ app.use(methodOverride('_method'));
 passportSetup(app);
 
 // Middleware that passes data to all templates
-app.use ( (req, res, next) => {
+app.use((req, res, next) => {
     res.locals.currentUser = req.user;
     res.locals.error = req.flash('error');
     res.locals.success = req.flash('success');
@@ -37,11 +37,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 // setup view engine
-app.set("view engine", "ejs");
+app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/public/views'));
 
 // expose static content
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/db/certificates'));
 
 // setup routes
 app.use('/', indexRoutes);
@@ -50,7 +51,7 @@ app.use('/logs', loggerRoutes);
 
 // every other route handling
 app.get('/*', (req, res, next) => {
-    res.redirect('https://vakcinacija.mk/');
+    // res.redirect('https://vakcinacija.mk/');
 });
 
 module.exports = app;

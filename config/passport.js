@@ -3,12 +3,14 @@ const passport = require('passport');
 const User = require('../src/models/user');
 const passportLocalStrategy = require('passport-local');
 
-setupPassport = (app) => {
-    app.use(expressSession({
-        secret: process.env.PASSPORT_SECRET,
-        resave: false,
-        saveUninitialized: false
-    }));
+const setupPassport = app => {
+    app.use(
+        expressSession({
+            secret: process.env.PASSPORT_SECRET,
+            resave: false,
+            saveUninitialized: false,
+        })
+    );
 
     app.use(passport.initialize());
     app.use(passport.session());
@@ -16,6 +18,6 @@ setupPassport = (app) => {
     passport.use(new passportLocalStrategy(User.authenticate()));
     passport.serializeUser(User.serializeUser());
     passport.deserializeUser(User.deserializeUser());
-}
+};
 
 module.exports = setupPassport;
